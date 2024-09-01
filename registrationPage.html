@@ -1,0 +1,44 @@
+<form id="registrationForm">
+    <input type="text" id="username" placeholder="Username" required>
+    <input type="password" id="password" placeholder="Password" required>
+    <input type="email" id="email" placeholder="Email" required>
+    <button type="submit">Register</button>
+  </form>
+  <div id="registrationErrors"></div>
+<script>document.getElementById('registrationForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent form submission
+
+  // Clear previous errors
+  const errorsDiv = document.getElementById('registrationErrors');
+  errorsDiv.innerHTML = '';
+
+  // Get form values
+  const username = document.getElementById('username').value.trim();
+  const password = document.getElementById('password').value;
+  const email = document.getElementById('email').value.trim();
+
+  // Basic validations
+  let errors = [];
+
+  if (username.length < 3) {
+    errors.push('Username must be at least 3 characters long.');
+  }
+
+  if (password.length < 6) {
+    errors.push('Password must be at least 6 characters long.');
+  }
+
+  const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailPattern.test(email)) {
+    errors.push('Invalid email address.');
+  }
+
+  if (errors.length > 0) {
+    errorsDiv.innerHTML = errors.join('<br>');
+  } else {
+    // Submit the form if no errors
+    alert('Registration successful!');
+  }
+});
+</script>
+  

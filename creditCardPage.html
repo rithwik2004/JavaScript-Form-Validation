@@ -1,0 +1,47 @@
+<form id="paymentForm">
+    <input type="text" id="cardNumber" placeholder="Card Number" required>
+    <input type="text" id="cardExpiry" placeholder="MM/YY" required>
+    <input type="text" id="cardCVV" placeholder="CVV" required>
+    <button type="submit">Pay Now</button>
+  </form>
+  <div id="paymentErrors"></div>
+<script> 
+    document.getElementById('paymentForm').addEventListener('submit', function(event) {
+  event.preventDefault(); // Prevent form submission
+
+  // Clear previous errors
+  const errorsDiv = document.getElementById('paymentErrors');
+  errorsDiv.innerHTML = '';
+
+  // Get form values
+  const cardNumber = document.getElementById('cardNumber').value.trim();
+  const cardExpiry = document.getElementById('cardExpiry').value.trim();
+  const cardCVV = document.getElementById('cardCVV').value.trim();
+
+  // Basic validations
+  let errors = [];
+
+  const cardNumberPattern = /^\d{16}$/; // Simple 16-digit card number validation
+  if (!cardNumberPattern.test(cardNumber)) {
+    errors.push('Invalid card number.');
+  }
+
+  const expiryPattern = /^(0[1-9]|1[0-2])\/\d{2}$/; // MM/YY format
+  if (!expiryPattern.test(cardExpiry)) {
+    errors.push('Invalid expiry date.');
+  }
+
+  const cvvPattern = /^\d{3}$/; // 3-digit CVV
+  if (!cvvPattern.test(cardCVV)) {
+    errors.push('Invalid CVV.');
+  }
+
+  if (errors.length > 0) {
+    errorsDiv.innerHTML = errors.join('<br>');
+  } else {
+    // Submit the form if no errors
+    alert('Payment processed successfully!');
+  }
+});
+
+</script>  
